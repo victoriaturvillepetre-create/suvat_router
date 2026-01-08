@@ -1,7 +1,6 @@
-
 import math
 
-def suvat_router():
+def suvat_router():
     print("SUVAT Equation Router")
     print("Variables:")
     print("s = displacement")
@@ -10,11 +9,40 @@ import math
     print("a = acceleration")
     print("t = time\n")
 
-    # Ask what variable to find
-    find = input("Which variable do you want to find? (s, u, v, a, t): ").lower()
+    valid_vars = {"s", "u", "v", "a", "t"}
+    # Validate the variable to find
+    while True:
+        find = input("Which variable do you want to find? (s, u, v, a, t): ").lower().strip()
+        if find in valid_vars:
+            break
+        print("Invalid choice. Please enter one of: s, u, v, a, t.")
+    
+    # Validate known variables
+    while True:
+        known = input("Enter the known variables (e.g. u v a): ").lower().split()
+    
+        # Check for invalid variables
+        if not all(var in valid_vars for var in known):
+            print("One or more invalid variables entered. Use only: s, u, v, a, t.")
+            continue
+    
+        # Check for duplicates
+        if len(set(known)) != len(known):
+            print("Duplicate variables detected. Please enter each variable only once.")
+            continue
+    
+        # Check that the unknown variable is not included
+        if find in known:
+            print(f"You are trying to find '{find}', so it cannot be a known variable.")
+            continue
+    
+        # Optional: ensure at least two known variables
+        if len(known) < 2:
+            print("Please enter at least two known variables.")
+            continue
+    
+        break
 
-    # Ask which variables are known
-    known = input("Enter the known variables (e.g. u v a): ").lower().split()
 
     values = {}
 
@@ -50,3 +78,7 @@ import math
 
     else:
         print("No suitable SUVAT equation found for those variables.")
+
+while True:
+    suvat_router()
+    print("\n"*3)
