@@ -1,4 +1,6 @@
 
+import math
+
 def suvat_router():
     print("SUVAT Equation Router")
     print("Variables:")
